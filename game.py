@@ -38,7 +38,6 @@ with st.spinner("Идет загрузка..."):
         #пауза нужна только чтобы было нагляднее при нажатии на  ту же клавишу
         #time.sleep(2)
         pred=guess(db.data['play'])
-        st.write(pred)
         db.data['play']+=predic[player_choice]
         choices = ["Камень", "Ножницы", "Бумага"]
         computer_choice = choices[(pred.index(max(pred))+2)%len(pred) ]
