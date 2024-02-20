@@ -112,4 +112,4 @@ elif scissors_button:
 elif paper_button:
     play_game("Бумага")
 
-st.write("made by @romnatall", draws)
+st.write("made by @romnatall")
