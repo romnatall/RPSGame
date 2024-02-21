@@ -39,8 +39,8 @@ with st.spinner("Идет загрузка..."):
         #time.sleep(2)
         pred=guess(db.data['play'])
         db.data['play']+=predic[player_choice]
-        choices = ["Камень", "Ножницы", "Бумага"]
-        computer_choice = choices[(pred.index(max(pred))+2)%len(pred) ]
+        pcchoices = {1:"Камень", 2:"Ножницы", 0:"Бумага"}
+        computer_choice = pcchoices[pred.index(max(pred))]
     
 
         col1, col2 = st.columns(2)
