@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 from db import SimpleDatabase as sb
 from model import guess
+import scipy.stats as sc
 # game.py этот файл, репозиторий https://github.com/romnatall/RPSGame
 
 
@@ -11,6 +12,7 @@ db =sb()
 wins= db.data.get('win',0)
 loses= db.data.get('lose',0)
 draws= db.data.get('draw',0)
+
 winrate=str(round((wins/(wins+loses) if (wins+loses)>0 else 1 )*100,ndigits=2))+"% "
 play= db.data.get('play','012')
 db.data['play']=play
@@ -75,11 +77,29 @@ with st.spinner("Идет загрузка..."):
                     db.data['lose']+=1
                     st.write("## Поражение")
                     st.image(pngs["lose"])
+
+                    
+        st.write(f"### ты продул ИИ с вероятностью {round((1-sc.binom(wins+loses,0.5).cdf(wins))*100,4)} % ")
+
+
+
+
+        
         db.save_data()
 
 # Веб-приложение
 st.title("Игра в Камень-Ножницы-Бумага")
 st.write("эта игра использует машинное обучение")#эту модель я сам придумал
+
+reset = st.button("Обнулить очки")
+if reset:
+    db.data['draw']=0
+    db.data['win']=0
+    db.data['lose']=0
+    wins= db.data.get('win',0)
+    loses= db.data.get('lose',0)
+    draws= db.data.get('draw',0)
+    db.save_data()
 
 # Вывод в колонках
 col1, col2, col3 = st.columns(3)
@@ -91,6 +111,8 @@ with col2:
 
 with col3:
     st.write("####  Ничьих: ", draws)
+
+
 
 st.write("####  Процент побед (не считая ничьих): ", winrate)
 
