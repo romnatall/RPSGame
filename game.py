@@ -79,7 +79,7 @@ with st.spinner("Идет загрузка..."):
                     st.image(pngs["lose"])
 
                     
-        st.write(f"### ты проиграл с вероятностью {round((1-sc.binom(wins+loses,0.5).cdf(wins))*100,4)} % ")
+        st.write(f"### ты проиграл с вероятностью {round((1-sc.binom(wins+loses,0.5).cdf(wins))*100,4)} % (проигрыш если значение близко к 100% и количество игр больше 20)")
 
 
 
